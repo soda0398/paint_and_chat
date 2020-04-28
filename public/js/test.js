@@ -1,6 +1,6 @@
 var pressed = false;
 //var socket = io("http://localhost:5000");
-var socket = io.connect(window.location.hostname);
+var socket = io(window.location.origin);
 let canvas = document.getElementById("myCanvas");
 let pencolor = document.getElementById("pen_color");
 let lastX = 0;
