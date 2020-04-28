@@ -6,15 +6,21 @@ var socket = require('socket.io');
 const path = require('path');
 
 console.log(__dirname);
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
-});
+
 
 var server = app.listen(port, function () {
   console.log("connection on Port:" + `${port}`);
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
 app.use('/public', express.static(__dirname + '/public'));
+
+
+
+
 
 var io = socket(server);
 
