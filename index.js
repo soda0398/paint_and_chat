@@ -1,16 +1,20 @@
-var express = require('express');
+const express = require('express');
+const app = express();
+const port = 3000;
+
 var socket = require('socket.io');
-var app = express();
 const path = require('path');
 
-app.get('/', function (req, res) {
+console.log(__dirname);
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-var server = app.listen(12345, function () {
-  console.log("hello,dum dum");
+
+var server = app.listen(port, function () {
+  console.log("connection on Port:" + `${port}`);
 });
 
-app.use(express.static('public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 var io = socket(server);
 

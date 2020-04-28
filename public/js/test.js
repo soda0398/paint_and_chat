@@ -1,5 +1,5 @@
 var pressed = false;
-var socket = io("http://localhost:12345/");
+var socket = io("http://localhost:3000");
 let canvas = document.getElementById("myCanvas");
 let pencolor = document.getElementById("pen_color");
 let lastX = 0;
