@@ -4,7 +4,7 @@ var app = express();
 const path = require('path');
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 var server = app.listen(12345, function () {
   console.log("hello,dum dum");
