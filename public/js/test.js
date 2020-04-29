@@ -10,12 +10,13 @@ function draw(x, y, event) {
   ctx = canvas.getContext("2d");
   console.log(pencolor.value);
   ctx.strokeStyle = pencolor.value;
-
+  console.log(pencolor.value);
   socket.emit('draw', {
     l_x: lastX,
     l_y: lastY,
     e_x: event.offsetX,
-    e_y: event.offsetY
+    e_y: event.offsetY,
+    pen: pencolor.value
   });
 
   ctx.beginPath();
@@ -26,10 +27,10 @@ function draw(x, y, event) {
   [lastX, lastY] = [event.offsetX, event.offsetY]
 }
 
-function draw_c(l_x, l_y, e_x, e_y) {
+function draw_c(l_x, l_y, e_x, e_y, color) {
   ctx = canvas.getContext("2d");
-  console.log(pencolor.value);
-  ctx.strokeStyle = pencolor.value;
+  console.log(color);
+  ctx.strokeStyle = color;
   ctx.beginPath();
   ctx.moveTo(l_x, l_y);
   ctx.lineTo(e_x, e_y);
@@ -60,9 +61,7 @@ canvas.addEventListener("mousemove", function (e) {
 
 pencolor.addEventListener('change', function () {
   console.log(pencolor.value);
-  socket.emit('color', {
-    color: pencolor.value
-  });
+
 })
 
 document.getElementById("clear").addEventListener("click", function () {
@@ -71,10 +70,29 @@ document.getElementById("clear").addEventListener("click", function () {
 });
 
 
+var send = document.getElementById("send_msg");
+
+send.addEventListener("click", function () {
+  let user_name = document.getElementById("user").value;
+  let msg = document.getElementById("msg").value;
+  let content = document.getElementById("chat_content");
+  content.innerHTML += user_name + ":" + msg + "</br>";
+  console.log(user_name, msg);
+
+  socket.emit('msg', {
+    user: user_name,
+    message: msg
+  });
+
+  document.getElementById("msg").value = "";
+});
+
+
+
 //listen for events
 socket.on('draw', function (data) {
   console.log(data.l_x, data.l_y, data.e_x, data.e_y)
-  draw_c(data.l_x, data.l_y, data.e_x, data.e_y);
+  draw_c(data.l_x, data.l_y, data.e_x, data.e_y, data.pen);
 });
 
 socket.on('color', function (data) {
@@ -83,4 +101,8 @@ socket.on('color', function (data) {
 
 socket.on('clear', function () {
   canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-})
+});
+
+socket.on('msg', function (data) {
+  document.getElementById("chat_content").innerHTML += data.user + ": " + data.message + "</br>";
+});

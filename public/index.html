@@ -10,6 +10,22 @@
   <br>
   <canvas id="myCanvas" style="border: 1px solid;" width="400px" height="600px">
   </canvas>
+
+  <div id="chat" style="float:left;">
+    <h4 style="margin-bottom:0px;">チャットウィンド</h4>
+    <div id="chat_content" style="overflow-y:auto;height:400px; width:400px; border:1px solid;">
+
+    </div>
+    <div id="chat_user">
+      <h4 style="margin-bottom:0px;">ユーザー名</h4>
+      <input id="user" type="text" placeholder="ユーザー名" style="width:400px; height:30px;">
+    </div>
+    <div id="chat_msg">
+      <h4 style="margin-bottom:0px;">メッセージ</h4>
+      <input id="msg" type="text" placeholder="メッセージ" style="width:400px;height:30px;">
+    </div>
+    <input id="send_msg" type="submit" style="margin-top:10px;" value="送信">
+  </div>
   <br>
   <button id="clear">Clear</button>
   <div id="x"></div>

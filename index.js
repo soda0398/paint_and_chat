@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 4000;
 
 var socket = require('socket.io');
 const path = require('path');
@@ -38,4 +38,9 @@ io.on('connection', function (socket) {
   socket.on('clear', function () {
     socket.broadcast.emit('clear');
   });
+
+  socket.on('msg', function (data) {
+    socket.broadcast.emit('msg', data);
+
+  })
 });
